@@ -1,16 +1,21 @@
 import { StyleSheet, View } from 'react-native';
 import MyInput from './src/MyInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MyList from './src/MyList';
 
+//ModalEdit -> intentando que aparezca el teclado
 export default function App() {
   const [list, setList] = useState([])
-  console.log("-----------------------------");
-  console.log(list);
+  const [listFilter, setListFilter] = useState([])
+
   return (
     <View style={styles.container}>
-      <MyList list={list} setList={setList} />
-      <MyInput setList={setList} />
+      <MyList
+        list={listFilter.length > 0 ? listFilter : list}
+        setList={setList}
+        setListFilter={setListFilter}
+      />
+      <MyInput list={list} setList={setList} setListFilter={setListFilter} />
     </View>
   );
 }

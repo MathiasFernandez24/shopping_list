@@ -1,23 +1,31 @@
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const MyInput = ({ setList }) => {
+const MyInput = ({ list, setList, setListFilter }) => {
     const [palabraInput, setPalabraInput] = useState("")
 
+    useEffect(() => {
+        setListFilter(list.filter((i) => i.value.includes(palabraInput)))
+    }, [palabraInput, list])
 
 
     const onSubmit = () => {
         let date = Date.now()
         setList((array) => {
-            const newList = [{ name: palabraInput, id: date, isDone: false }, ...array]
+            const newList = [{ value: palabraInput, id: date, isDone: false }, ...array]
             return newList
         })
         setPalabraInput("")
+        setListFilter([])
+    }
+
+    const onChangeTextInput = (i) => {
+        setPalabraInput(i)
     }
 
     return (
         <View style={styles.container} >
-            <TextInput value={palabraInput} style={styles.input} onChangeText={i => { setPalabraInput(i) }} />
+            <TextInput value={palabraInput} style={styles.input} onChangeText={onChangeTextInput} />
             <TouchableOpacity disabled={palabraInput == "" ? true : false} onPress={onSubmit}>
 
                 {/* COMPONENTE TEMPORAL */}
