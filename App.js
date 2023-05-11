@@ -1,9 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 import MyInput from './src/MyInput';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import MyList from './src/MyList';
+import { COLORS } from './src/colors';
 
-//ModalEdit -> intentando que aparezca el teclado
 export default function App() {
   const [list, setList] = useState([])
   const [listFilter, setListFilter] = useState([])
@@ -23,8 +23,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lightblue',
+    backgroundColor: COLORS.tertiary,
     alignItems: 'center',
-    // justifyContent: 'center',
   },
 });

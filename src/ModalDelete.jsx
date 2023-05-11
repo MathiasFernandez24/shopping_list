@@ -1,5 +1,6 @@
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
+import { COLORS } from './colors'
 
 const ModalDelete = ({ modalDeleteVisible, setModalDeleteVisible, item, setList }) => {
 
@@ -9,6 +10,7 @@ const ModalDelete = ({ modalDeleteVisible, setModalDeleteVisible, item, setList 
 
     const deleteTask = () => {
         setList(prevState => prevState.filter(i => i.id != item.id))
+        setModalDeleteVisible(false)
     }
 
     return (
@@ -21,7 +23,7 @@ const ModalDelete = ({ modalDeleteVisible, setModalDeleteVisible, item, setList 
             <View style={styles.container}>
                 <View style={styles.cardContainer}>
 
-                    <Text>"{item.value}"</Text>
+                    <Text style={styles.title}>"{item.value}"</Text>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity onPress={closeModalDelete}>
                             <Text style={styles.textButton}>Close</Text>
@@ -42,25 +44,29 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+
     },
     cardContainer: {
-        backgroundColor: 'grey',
+        backgroundColor: COLORS.secondary,
+        borderColor: COLORS.acent,
+        borderWidth: 1,
         marginTop: 50,
         width: 300,
-        height: 80,
+        height: 120,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: 15,
+
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 6,
+            height: 12,
         },
-        shadowOpacity: 0.39,
-        shadowRadius: 8.30,
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
 
-        elevation: 13,
+        elevation: 24,
     },
     buttonContainer: {
         width: '80%',
@@ -70,6 +76,24 @@ const styles = StyleSheet.create({
     textButton: {
         margin: 5,
         textDecorationLine: 'underline',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: COLORS.acent,
+        fontSize: 20,
+
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 11,
+        },
+        shadowOpacity: 0.55,
+        shadowRadius: 14.78,
+        elevation: 22,
+    },
+    title: {
+        textAlign: 'center',
+        width: '100%',
+        backgroundColor: COLORS.tertiary,
+        borderRadius: 5,
+        fontSize: 25
     }
 })

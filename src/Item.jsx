@@ -1,41 +1,22 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
-import ModalDelete from './ModalDelete'
-import ModalEdit from './ModalEdit'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React from 'react'
+import { COLORS } from './colors'
 
-const Item = ({ item, setList }) => {
+const Item = ({ item, setList, deleteTask, editTask }) => {
     const { index } = item
     const { value, isDone, id } = item.item
 
-    const [modalDeleteVisible, setModalDeleteVisible] = useState(false)
-    const [modalEditVisible, setModalEditVisible] = useState(false)
-
     const completeTask = () => {
-        //sort the list by isDone and value
-        setList(prevState => [...prevState.filter(i => i.id != item.item.id), { value: value, id: id, isDone: !isDone }]
-            .sort((a, b) => a.value.localeCompare(b.value))
-            .sort((a, b) => a.isDone - b.isDone))
-    }
-
-    const deleteTask = () => {
-        setModalDeleteVisible(true)
-    }
-
-    const editTask = () => {
-        setModalEditVisible(true)
+        setList(prevState => [...prevState.filter(i => i.id != item.item.id), { value: value, id: id, isDone: !isDone }])
     }
 
     return (
-        <TouchableOpacity style={styles.container} onPress={completeTask} onLongPress={editTask}>
-            <Text style={{ backgroundColor: 'red' }}>{index + 1} </Text>
+        <TouchableOpacity style={styles.container} onPress={completeTask} onLongPress={() => editTask(item.item)}>
+            <Text style={styles.orderNumber}>{index + 1} </Text>
             <Text style={isDone ? styles.textIndexDone : styles.textIndex} >{value}</Text>
-            <TouchableOpacity onPress={deleteTask}>
-                <View style={styles.buttonDelete}>
-                    <Text style={styles.textButtonDelete}>X</Text>
-                </View>
+            <TouchableOpacity onPress={() => deleteTask(item.item)}>
+                <Image style={styles.imageButtonDelete} source={require('./Icons/deleteItem.png')} />
             </TouchableOpacity>
-            <ModalDelete setList={setList} item={item.item} modalDeleteVisible={modalDeleteVisible} setModalDeleteVisible={setModalDeleteVisible} />
-            <ModalEdit setList={setList} setModalEditVisible={setModalEditVisible} modalEditVisible={modalEditVisible} item={item.item} />
         </TouchableOpacity>
     )
 }
@@ -46,36 +27,55 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
         margin: 5,
         borderWidth: 1,
-        backgroundColor: 'green',
+        borderColor: COLORS.acent,
+        backgroundColor: COLORS.primary,
         padding: 8,
-        // height: 200
+        borderRadius: 10,
+
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.29,
+        shadowRadius: 4.65,
+
+        elevation: 7,
     },
     textIndex: {
         marginHorizontal: 5,
-        backgroundColor: 'white',
-        flex: 1
+        backgroundColor: COLORS.tertiary,
+        fontSize: 20,
+        flex: 1,
     },
     textIndexDone: {
         marginHorizontal: 5,
+        backgroundColor: COLORS.tertiary,
+        fontSize: 20,
+        flex: 1,
         textDecorationLine: 'line-through',
         opacity: 0.3,
-        backgroundColor: 'white',
-        flex: 1
     },
-    buttonDelete: {
-        backgroundColor: 'yellow',
+    imageButtonDelete: {
+        backgroundColor: COLORS.tertiary,
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 2,
-        borderRadius: 40,
-        // width: 35,
-        // height: 35,
+        borderRadius: 10,
+        width: 35,
+        height: 35,
     },
-    textButtonDelete: {
-        fontSize: 30,
-        marginHorizontal: 12,
+    orderNumber: {
+        backgroundColor: COLORS.acent,
+        fontSize: 16,
+        marginRight: 5,
+        marginLeft: -3,
+        paddingLeft: 4,
+        borderRadius: 15,
 
-    },
+    }
 })

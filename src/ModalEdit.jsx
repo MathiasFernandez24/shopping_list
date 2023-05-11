@@ -1,9 +1,10 @@
 import { Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { COLORS } from './colors'
 
 const ModalEdit = ({ setList, modalEditVisible, setModalEditVisible, item }) => {
+
     const [newValueInput, setNewValueInput] = useState(item.value)
-    const [autofocus, setAutofocus] = useState(false)
 
     useEffect(() => {
         setNewValueInput(item.value)
@@ -17,10 +18,7 @@ const ModalEdit = ({ setList, modalEditVisible, setModalEditVisible, item }) => 
     }
 
     const saveTask = () => {
-        //sort the list by isDone and value
-        setList(prevState => [...prevState.filter(i => i.id != item.id), { value: newValueInput, id: item.id, isDone: item.isDone }]
-            .sort((a, b) => a.value.localeCompare(b.value))
-            .sort((a, b) => a.isDone - b.isDone))
+        setList(prevState => [...prevState.filter(i => i.id != item.id), { value: newValueInput, id: item.id, isDone: item.isDone }])
         closeModalEdit()
     }
 
@@ -33,9 +31,7 @@ const ModalEdit = ({ setList, modalEditVisible, setModalEditVisible, item }) => 
 
             <View style={styles.container}>
                 <View style={styles.cardContainer}>
-
-                    {/* <Text>"hola"</Text> */}
-                    <TextInput value={newValueInput} onChangeText={changeInput} autoFocus={true} />
+                    <TextInput style={styles.title} value={newValueInput} onChangeText={changeInput} autoFocus={modalEditVisible} />
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity onPress={closeModalEdit}>
                             <Text style={styles.textButton}>Close</Text>
@@ -58,23 +54,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     cardContainer: {
-        backgroundColor: 'grey',
+        backgroundColor: COLORS.secondary,
+        borderColor: COLORS.acent,
+        borderWidth: 1,
         marginTop: 50,
         width: 300,
-        height: 80,
+        height: 120,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: 15,
+
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 6,
+            height: 12,
         },
-        shadowOpacity: 0.39,
-        shadowRadius: 8.30,
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
 
-        elevation: 13,
+        elevation: 24,
     },
     buttonContainer: {
         width: '80%',
@@ -84,6 +83,24 @@ const styles = StyleSheet.create({
     textButton: {
         margin: 5,
         textDecorationLine: 'underline',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: COLORS.acent,
+        fontSize: 20,
+
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 11,
+        },
+        shadowOpacity: 0.55,
+        shadowRadius: 14.78,
+        elevation: 22,
+    },
+    title: {
+        textAlign: 'center',
+        width: '100%',
+        backgroundColor: COLORS.tertiary,
+        borderRadius: 5,
+        fontSize: 25
     }
 })

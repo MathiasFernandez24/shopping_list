@@ -1,5 +1,6 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { COLORS } from './colors'
 
 const MyInput = ({ list, setList, setListFilter }) => {
     const [palabraInput, setPalabraInput] = useState("")
@@ -25,13 +26,9 @@ const MyInput = ({ list, setList, setListFilter }) => {
 
     return (
         <View style={styles.container} >
-            <TextInput value={palabraInput} style={styles.input} onChangeText={onChangeTextInput} />
-            <TouchableOpacity disabled={palabraInput == "" ? true : false} onPress={onSubmit}>
-
-                {/* COMPONENTE TEMPORAL */}
-                <View style={styles.buttonAdd}>
-                    <Text style={styles.textButtonAdd}>+</Text>
-                </View>
+            <TextInput value={palabraInput} style={styles.input} onChangeText={onChangeTextInput} placeholder='Add Item' />
+            <TouchableOpacity disabled={palabraInput == "" ? true : false} onPress={onSubmit} style={{ opacity: palabraInput == "" ? 0.35 : 1 }}>
+                <Image style={styles.imageAdd} source={require('./Icons/addItem.png')} />
             </TouchableOpacity>
         </View>
     )
@@ -41,32 +38,25 @@ export default MyInput
 
 const styles = StyleSheet.create({
     container: {
-        // height: 500,
-        // backgroundColor: 'green',
-        // margin: 20,
         padding: 10,
         flexDirection: 'row'
     },
-    buttonAdd: {
-        backgroundColor: 'yellow',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 2,
-        borderRadius: 40,
-        // width: 35,
-        // height: 35,
-    },
-    textButtonAdd: {
-        fontSize: 30,
-        marginHorizontal: 12,
-
+    imageAdd: {
+        backgroundColor: COLORS.tertiary,
+        borderRadius: 5,
+        height: 40,
+        width: 40,
+        borderWidth: 1,
+        borderColor: 'black'
     },
     input: {
         flex: 1,
-        backgroundColor: 'pink',
+        backgroundColor: COLORS.secondary,
         borderWidth: 1,
         marginRight: 5,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        height: 40,
+        borderRadius: 5,
     },
 
 })
