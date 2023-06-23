@@ -1,16 +1,19 @@
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { COLORS } from './colors'
+import { deleteToDB } from './db'
 
-const ModalDelete = ({ modalDeleteVisible, setModalDeleteVisible, item, setList }) => {
+const ModalDelete = ({ modalDeleteVisible, setModalDeleteVisible, item, setList, setListFilter }) => {
 
     const closeModalDelete = () => {
         setModalDeleteVisible(false)
     }
 
     const deleteTask = () => {
+        deleteToDB(item)
         setList(prevState => prevState.filter(i => i.id != item.id))
         setModalDeleteVisible(false)
+        setListFilter([])
     }
 
     return (

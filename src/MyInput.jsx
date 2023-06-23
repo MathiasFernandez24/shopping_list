@@ -1,17 +1,19 @@
 import { Image, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { COLORS } from './colors'
+import { addToDB } from './db'
 
-const MyInput = ({ list, setList, setListFilter }) => {
+const MyInput = ({ list, setList, setListFilter, }) => {
     const [palabraInput, setPalabraInput] = useState("")
 
     useEffect(() => {
         setListFilter(list.filter((i) => i.value.includes(palabraInput)))
-    }, [palabraInput, list])
+    }, [palabraInput])
 
 
     const onSubmit = () => {
         let date = Date.now()
+        addToDB({ value: palabraInput, id: date, isDone: false })
         setList((array) => {
             const newList = [{ value: palabraInput, id: date, isDone: false }, ...array]
             return newList

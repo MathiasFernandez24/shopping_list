@@ -1,12 +1,17 @@
-import { StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import MyInput from './src/MyInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MyList from './src/MyList';
 import { COLORS } from './src/colors';
+import { getDB, initDB } from './src/db';
 
 export default function App() {
   const [list, setList] = useState([])
   const [listFilter, setListFilter] = useState([])
+  useEffect(() => {
+    initDB()
+    getDB(setList, setListFilter)
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -15,7 +20,10 @@ export default function App() {
         setList={setList}
         setListFilter={setListFilter}
       />
-      <MyInput list={list} setList={setList} setListFilter={setListFilter} />
+      <MyInput
+        list={list}
+        setList={setList}
+        setListFilter={setListFilter} />
     </View>
   );
 }

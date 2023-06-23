@@ -1,13 +1,16 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { COLORS } from './colors'
+import { updateIsDoneToDB } from './db'
 
-const Item = ({ item, setList, deleteTask, editTask }) => {
+const Item = ({ item, setList, deleteTask, editTask, setListFilter }) => {
     const { index } = item
     const { value, isDone, id } = item.item
 
     const completeTask = () => {
         setList(prevState => [...prevState.filter(i => i.id != item.item.id), { value: value, id: id, isDone: !isDone }])
+        setListFilter(prevState => [...prevState.filter(i => i.id != item.item.id), { value: value, id: id, isDone: !isDone }])
+        updateIsDoneToDB(id, !isDone)
     }
 
     return (

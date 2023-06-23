@@ -5,11 +5,16 @@ import { COLORS } from './colors'
 import ModalDelete from './ModalDelete'
 import ModalEdit from './ModalEdit'
 
-const MyList = ({ list, setList }) => {
+const MyList = ({ list, setList, setListFilter }) => {
     const [modalDeleteVisible, setModalDeleteVisible] = useState(false)
     const [modalEditVisible, setModalEditVisible] = useState(false)
     const [itemSelectedDelete, setItemSelectedDelete] = useState({})
     const [itemSelectedEdit, setItemSelectedEdit] = useState({})
+
+    useEffect(() => {
+        // console.log("re-render");
+    }, [list])
+
 
     const deleteTask = (item) => {
         setItemSelectedDelete(item)
@@ -26,7 +31,7 @@ const MyList = ({ list, setList }) => {
         <View style={styles.container}>
             {
                 list.length == 0 ?
-                    <Text style={styles.noElementsText}>No items..</Text>
+                    <Text style={styles.noElementsText}>No hay items..</Text>
                     :
                     <FlatList
                         data={list
@@ -34,12 +39,22 @@ const MyList = ({ list, setList }) => {
                             .sort((a, b) => a.value.localeCompare(b.value))
                             .sort((a, b) => a.isDone - b.isDone)
                         }
-                        renderItem={iterable => <Item item={iterable} setList={setList} deleteTask={deleteTask} editTask={editTask} />}
+                        renderItem={iterable => <Item item={iterable} setList={setList} deleteTask={deleteTask} editTask={editTask} setListFilter={setListFilter} />}
                         keyExtractor={item => item.id}
                     />
             }
-            <ModalDelete setList={setList} item={itemSelectedDelete} modalDeleteVisible={modalDeleteVisible} setModalDeleteVisible={setModalDeleteVisible} />
-            <ModalEdit setList={setList} item={itemSelectedEdit} modalEditVisible={modalEditVisible} setModalEditVisible={setModalEditVisible} />
+            <ModalDelete
+                setList={setList}
+                item={itemSelectedDelete}
+                modalDeleteVisible={modalDeleteVisible}
+                setModalDeleteVisible={setModalDeleteVisible}
+                setListFilter={setListFilter} />
+            <ModalEdit
+                setList={setList}
+                item={itemSelectedEdit}
+                modalEditVisible={modalEditVisible}
+                setListFilter={setListFilter}
+                setModalEditVisible={setModalEditVisible} />
         </View>
     )
 }

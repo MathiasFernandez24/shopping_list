@@ -1,8 +1,10 @@
 import { Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { COLORS } from './colors'
+import { updateValueToDB } from './db'
 
-const ModalEdit = ({ setList, modalEditVisible, setModalEditVisible, item }) => {
+
+const ModalEdit = ({ setList, modalEditVisible, setModalEditVisible, item, setListFilter }) => {
 
     const [newValueInput, setNewValueInput] = useState(item.value)
 
@@ -19,6 +21,8 @@ const ModalEdit = ({ setList, modalEditVisible, setModalEditVisible, item }) => 
 
     const saveTask = () => {
         setList(prevState => [...prevState.filter(i => i.id != item.id), { value: newValueInput, id: item.id, isDone: item.isDone }])
+        updateValueToDB(item, newValueInput)
+        setListFilter([])
         closeModalEdit()
     }
 
