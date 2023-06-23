@@ -3,11 +3,16 @@ import React, { useEffect, useState } from 'react'
 import { COLORS } from './colors'
 import { addToDB } from './db'
 
-const MyInput = ({ list, setList, setListFilter, }) => {
+const MyInput = ({ list, setList, setListFilter, setInputInUse }) => {
     const [palabraInput, setPalabraInput] = useState("")
 
     useEffect(() => {
         setListFilter(list.filter((i) => i.value.includes(palabraInput)))
+        if (palabraInput !== "") {
+            setInputInUse(true)
+        } else {
+            setInputInUse(false)
+        }
     }, [palabraInput])
 
 

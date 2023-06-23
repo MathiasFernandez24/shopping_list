@@ -3,13 +3,20 @@ import React from 'react'
 import { COLORS } from './colors'
 import { updateIsDoneToDB } from './db'
 
-const Item = ({ item, setList, deleteTask, editTask, setListFilter }) => {
+const Item = ({ item, setList, deleteTask, editTask, setListFilter, inputInUse }) => {
     const { index } = item
     const { value, isDone, id } = item.item
 
     const completeTask = () => {
-        setList(prevState => [...prevState.filter(i => i.id != item.item.id), { value: value, id: id, isDone: !isDone }])
-        setListFilter(prevState => [...prevState.filter(i => i.id != item.item.id), { value: value, id: id, isDone: !isDone }])
+        setList(prevState => {
+            setListFilter(
+                inputInUse ?
+                    prev => [...prev.filter(i => i.id != item.item.id), { value: value, id: id, isDone: !isDone }]
+                    :
+                    [...prevState.filter(i => i.id != item.item.id), { value: value, id: id, isDone: !isDone }]
+            )
+            return [...prevState.filter(i => i.id != item.item.id), { value: value, id: id, isDone: !isDone }]
+        })
         updateIsDoneToDB(id, !isDone)
     }
 

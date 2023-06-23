@@ -5,7 +5,7 @@ import { COLORS } from './colors'
 import ModalDelete from './ModalDelete'
 import ModalEdit from './ModalEdit'
 
-const MyList = ({ list, setList, setListFilter }) => {
+const MyList = ({ list, setList, setListFilter, inputInUse }) => {
     const [modalDeleteVisible, setModalDeleteVisible] = useState(false)
     const [modalEditVisible, setModalEditVisible] = useState(false)
     const [itemSelectedDelete, setItemSelectedDelete] = useState({})
@@ -39,7 +39,7 @@ const MyList = ({ list, setList, setListFilter }) => {
                             .sort((a, b) => a.value.localeCompare(b.value))
                             .sort((a, b) => a.isDone - b.isDone)
                         }
-                        renderItem={iterable => <Item item={iterable} setList={setList} deleteTask={deleteTask} editTask={editTask} setListFilter={setListFilter} />}
+                        renderItem={iterable => <Item item={iterable} setList={setList} deleteTask={deleteTask} editTask={editTask} setListFilter={setListFilter} inputInUse={inputInUse} />}
                         keyExtractor={item => item.id}
                     />
             }

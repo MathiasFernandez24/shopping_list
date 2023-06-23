@@ -6,6 +6,7 @@ import { COLORS } from './src/colors';
 import { getDB, initDB } from './src/db';
 
 export default function App() {
+  const [inputInUse, setInputInUse] = useState(false)
   const [list, setList] = useState([])
   const [listFilter, setListFilter] = useState([])
   useEffect(() => {
@@ -19,11 +20,13 @@ export default function App() {
         list={listFilter.length > 0 ? listFilter : list}
         setList={setList}
         setListFilter={setListFilter}
+        inputInUse={inputInUse}
       />
       <MyInput
         list={list}
         setList={setList}
-        setListFilter={setListFilter} />
+        setListFilter={setListFilter}
+        setInputInUse={setInputInUse} />
     </View>
   );
 }

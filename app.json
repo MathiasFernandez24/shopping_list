@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "App_1",
-    "slug": "App_1",
+    "name": "Shopping List",
+    "slug": "shopping-list",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
@@ -25,6 +25,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "86175223-4229-4a1b-a06d-c90089e4c1e2"
+      }
+    },
+    "owner": "mathiasfernandez24",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/86175223-4229-4a1b-a06d-c90089e4c1e2"
     }
   }
 }
