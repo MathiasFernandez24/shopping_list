@@ -5,9 +5,9 @@ import { addToDB } from './db'
 
 const MyInput = ({ list, setList, setListFilter, setInputInUse }) => {
     const [palabraInput, setPalabraInput] = useState("")
-
+    "".toLocaleLowerCase
     useEffect(() => {
-        setListFilter(list.filter((i) => i.value.includes(palabraInput)))
+        setListFilter(list.filter((i) => i.value.toLocaleLowerCase().includes(palabraInput.toLocaleLowerCase())))
         if (palabraInput !== "") {
             setInputInUse(true)
         } else {
